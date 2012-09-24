@@ -1,0 +1,18 @@
+.tile {
+	float: left;
+	width: 70px;
+	height: 70px;
+	margin: 10px;
+}
+
+.front {
+	background: blue;	
+}
+
+.back {
+	background: red;	
+}
+
+.row {
+	display: table;
+}
