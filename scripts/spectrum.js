@@ -198,7 +198,8 @@
             }
             if (localStorageKey && window.localStorage) {
                 try {
-                    selectionPalette = window.localStorage[localStorageKey].split(",");
+                    //selectionPalette = window.localStorage[localStorageKey].split(",");
+                    savedPalette = window.localStorage[localStorageKey].split(",");
                 }
                 catch (e) {
 
@@ -292,15 +293,18 @@
         function addColorToSelectionPalette(color) {
             if (showSelectionPalette) {
                 selectionPalette.push(tinycolor(color).toHexString());
+                savedPalette.push(tinycolor(color).toHexString());
                 if (localStorageKey && window.localStorage) {
                     window.localStorage[localStorageKey] = selectionPalette.join(",");
+                    //window.localStorage[localStorageKey] = selectionPalette.join(",");
                 }
             }
         }
 
         function getUniqueSelectionPalette() {
             var unique = [];
-            var p = selectionPalette;
+            //var p = selectionPalette;
+            var p = savedPalette;
             var paletteLookup = {};
 
             if (showPalette) {

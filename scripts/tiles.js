@@ -1,23 +1,27 @@
 var rowID = 0;
+var tileID = 0;
+var savedPalette = [];
+var lastColor = "";
 
 function setupTouchEvents() {
 	var $tiles = $('.tile');
 	
-	$tiles.on('tap', function(event) {
-		event.preventDefault();
-		if ($(this).attr('class').indexOf("flip") !== -1) {
-			$(this).removeClass('flip');
-		} else {
-			$(this).addClass('flip');
+	$tiles.spectrum({
+		showInitial: true,
+		showPalette: true,
+		showSelectionPalette: true,
+		palette: [],
+		color: lastColor,
+		localStorageKey: "spectrum.homepage",
+		change: function(color) {
+			$(this).css("background", color.toHexString());
 		}
 	});
 }
 
 function createTileAndAppendTo(selector) {
-	$(selector).append('<div class="tile hover panel">'
-			+ '<div class="front"></div>' 
-			+ '<div class="back"></div>' 
-			+ '</div>');
+	$(selector).append('<div id="tile' + tileID + '" class="tile"></div>');
+	tileID++;
 }
 
 function createRowAndAppendTo(selector) {
