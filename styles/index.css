@@ -1,3 +1,10 @@
 body {
 	background-color: black;
 }
+
+.well {
+	margin: 10px 0;
+	-webkit-border-radius: 0;
+	-moz-border-radius: 0;
+	border-radius: 0;
+}

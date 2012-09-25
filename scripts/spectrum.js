@@ -295,8 +295,8 @@
                 selectionPalette.push(tinycolor(color).toHexString());
                 savedPalette.push(tinycolor(color).toHexString());
                 if (localStorageKey && window.localStorage) {
-                    window.localStorage[localStorageKey] = selectionPalette.join(",");
                     //window.localStorage[localStorageKey] = selectionPalette.join(",");
+                    window.localStorage[localStorageKey] = savedPalette.join(",");
                 }
             }
         }

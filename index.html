@@ -3,8 +3,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>L8 Visual</title>
-<!-- <link rel="stylesheet" href="styles/bootstrap.min.css" />
-<link rel="stylesheet" href="styles/bootstrap-responsive.min.css" />-->
+<link rel="stylesheet" href="styles/bootstrap.min.css" />
+<link rel="stylesheet" href="styles/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="styles/index.css" />
 <link rel="stylesheet" href="styles/flip.css" />
 <link rel="stylesheet" href="styles/tile.css" />
@@ -17,11 +17,20 @@
 <script type="text/javascript">
 	$(function() {
 		createGridWithDimensions(8, 8);
-		setupTouchEvents();
+		setupColorPickerWithSelector('#colorChoice');
+		setupEvents();
 	});
 </script>
 </head>
 <body>
-	<div class="container" id="lightGrid"></div>
+	<div class="container">
+		<div class="row">
+			<div class="span8" id="lightGrid"></div>
+			<div class="well span3">
+				<h1>Settings</h1>
+				<input id="colorChoice" type="text">
+			</div>
+		</div>
+	</div>
 </body>
 </html>
