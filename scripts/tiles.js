@@ -1,5 +1,18 @@
 var rowID = 0;
 
+function setupTouchEvents() {
+	var $tiles = $('.tile');
+	
+	$tiles.on('tap', function(event) {
+		event.preventDefault();
+		if ($(this).attr('class').indexOf("flip") !== -1) {
+			$(this).removeClass('flip');
+		} else {
+			$(this).addClass('flip');
+		}
+	});
+}
+
 function createTileAndAppendTo(selector) {
 	$(selector).append('<div class="tile hover panel">'
 			+ '<div class="front"></div>' 
@@ -19,18 +32,4 @@ function createGridWithDimensions(width, height) {
 		}
 		rowID++;
 	}
-}
-
-function flipOnHover() {
-	// set up hover panels
-    // although this can be done without JavaScript, we've attached these events
-    // because it causes the hover to be triggered when the element is tapped on a touch device
-	$('.hover').bind({
-		mouseover: function() {
-			$(this).addClass('flip');
-		},
-		mouseout: function() {
-			$(this).removeClass('flip');
-		}
-    });
 }
