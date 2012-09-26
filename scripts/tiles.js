@@ -33,21 +33,6 @@ function Tile(id) {
 	}
 }
 
-function setupColorPickerWithSelector(selector) {
-	$(selector).spectrum({
-		showInput: true,
-		preferredFormat: "hex",
-		showInitial: true,
-		showPalette: true, // Needed to show premade palettte
-		palette: ["#255ea6", "#da3838"],
-		showSelectionPalette: true,
-		localStorageKey: "spectrum.homepage",
-		change: function(color) {
-			currColor = color.toHexString();
-		}
-	});
-}
-
 function setupEvents() {
 	var $tiles = $('.tile');
 	

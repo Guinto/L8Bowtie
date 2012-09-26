@@ -1,5 +1,21 @@
 body {
 	background-color: black;
+	
+	/* keeps the default mouse symbol when dragging 
+	instead of changing to a text cursor */
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+#settings input {
+	margin: 10px;
+	width: 50px;
+}
+
+canvas {
+	border: #0C0C0C 2px solid;
+	margin: 10px;
 }
 
 .well {

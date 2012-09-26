@@ -1,5 +1,5 @@
 var Animation = {
-	fps : 60
+	fps : 2
 };
 
 Animation.draw = function() {

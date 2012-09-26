@@ -6,20 +6,20 @@
 <link rel="stylesheet" href="styles/bootstrap.min.css" />
 <link rel="stylesheet" href="styles/bootstrap-responsive.min.css" />
 <link rel="stylesheet" href="styles/index.css" />
-<link rel="stylesheet" href="styles/tile.css" />
 <link rel="stylesheet" href="styles/spectrum.css" />
 
 <script src="scripts/jquery-1.8.2.min.js"></script>
-<script src="scripts/tiles.js"></script>
+<script src="scripts/index.js"></script>
 <script src="scripts/spectrum.js"></script>
 <script src="scripts/animation.js"></script>
 
 <script type="text/javascript">
 	$(function() {
-		createGridWithDimensions(8, 8);
 		setupColorPickerWithSelector('#colorChoice');
-		setupEvents();
+		setupMouseEvents();
+		setupKeyboardEvents();
 		
+		$('#fps').val(Animation.fps);
 		$('#fps').on('change', function() {
 			Animation.fps = $(this).val();
 		});
@@ -55,20 +55,23 @@
 	})();
 	
 	window.onEachFrame(Animation.run);
+	
 </script>
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="span8" id="lightGrid"></div>
-			<div class="well span3">
+			<canvas id="lightGrid" class="span8"></canvas>
+			<div id="settings" class="well span3">
 				<h1>Settings</h1>
-				<input id="colorChoice" type="text">
+				color&nbsp;<input id="colorChoice" type="text">
 				<div>
-				fps&nbsp;<input id="fps" type="number" value="60" size="2">
+				fps&nbsp;<input id="fps" type="number">
 				</div>
 			</div>
 		</div>
 	</div>
+	
+	<script src="scripts/tile.js"></script>
 </body>
 </html>
