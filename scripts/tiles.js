@@ -1,6 +1,5 @@
 var rowID = 0;
 var tileID = 0;
-var savedPalette = [];
 var currColor = "";
 var offColor = "#292929";
 var tiles = new Array();

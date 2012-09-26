@@ -16,13 +16,7 @@
 <script type="text/javascript">
 	$(function() {
 		setupColorPickerWithSelector('#colorChoice');
-		setupMouseEvents();
-		setupKeyboardEvents();
-		
-		$('#fps').val(Animation.fps);
-		$('#fps').on('change', function() {
-			Animation.fps = $(this).val();
-		});
+		setup();
 	});
 
 	var interval;
@@ -67,6 +61,8 @@
 				color&nbsp;<input id="colorChoice" type="text">
 				<div>
 				fps&nbsp;<input id="fps" type="number">
+				<button id="undoBtn" type="button" class="btn">Undo</button>
+				<button id="redoBtn" type="button" class="btn">Redo</button>
 				</div>
 			</div>
 		</div>
