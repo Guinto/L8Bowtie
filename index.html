@@ -9,16 +9,52 @@
 <link rel="stylesheet" href="styles/tile.css" />
 <link rel="stylesheet" href="styles/spectrum.css" />
 
-<script src="scripts/jquery-1.8.2.min.js"></script> 
+<script src="scripts/jquery-1.8.2.min.js"></script>
 <script src="scripts/tiles.js"></script>
 <script src="scripts/spectrum.js"></script>
+<script src="scripts/animation.js"></script>
 
 <script type="text/javascript">
 	$(function() {
 		createGridWithDimensions(8, 8);
 		setupColorPickerWithSelector('#colorChoice');
 		setupEvents();
+		
+		$('#fps').on('change', function() {
+			Animation.fps = $(this).val();
+		});
 	});
+
+	var interval;
+	// Lowers cpu usage src=http://nokarma.org/2011/02/02/javascript-game-development-the-game-loop/index.html
+	(function() {
+		var onEachFrame;
+		if (window.webkitRequestAnimationFrame) {
+			onEachFrame = function(cb) {
+				var _cb = function() {
+					cb();
+					webkitRequestAnimationFrame(_cb);
+				}
+				_cb();
+			};
+		} else if (window.mozRequestAnimationFrame) {
+			onEachFrame = function(cb) {
+				var _cb = function() {
+					cb();
+					mozRequestAnimationFrame(_cb);
+				}
+				_cb();
+			};
+		} else {
+			onEachFrame = function(cb) {
+				interval = setInterval(cb, 1000 / 60);
+			}
+		}
+
+		window.onEachFrame = onEachFrame;
+	})();
+	
+	window.onEachFrame(Animation.run);
 </script>
 </head>
 <body>
@@ -28,6 +64,9 @@
 			<div class="well span3">
 				<h1>Settings</h1>
 				<input id="colorChoice" type="text">
+				<div>
+				fps&nbsp;<input id="fps" type="number" value="60" size="2">
+				</div>
 			</div>
 		</div>
 	</div>

@@ -4,11 +4,14 @@ var savedPalette = [];
 var currColor = "";
 var offColor = "#292929";
 var tiles = new Array();
+var numRows = 0;
+var numCols = 0;
 
 function Tile(id) {
 	this.lit = false;
 	this.currColor = offColor;
 	this.tileID = id;
+	this.tileAnimationTick = 0;
 	
 	this.changeColor = function(color) {
 		this.lit = true;
@@ -21,6 +24,13 @@ function Tile(id) {
 		this.currColor = offColor;
 		$('#tile' + this.tileID).css('background', this.currColor);
 	};
+	
+	this.update = function() {
+		this.tileAnimationTick++;
+		if (this.tileAnimationTick > numCols) {
+			this.tileAnimationTick = 0;
+		}
+	}
 }
 
 function setupColorPickerWithSelector(selector) {
@@ -78,10 +88,12 @@ function createRowAndAppendTo(selector) {
 	$(selector).append('<div id="row' + rowID + '" class="row"></div>');
 }
 
-function createGridWithDimensions(width, height) {
-	for (var i = 0; i < height; i++) {
+function createGridWithDimensions(row, col) {
+	numRows = row;
+	numCols = col;
+	for (var i = 0; i < col; i++) {
 		createRowAndAppendTo('#lightGrid');
-		for (var j = 0; j < width; j++) {
+		for (var j = 0; j < row; j++) {
 			createTileAndAppendTo('#row' + rowID);
 		}
 		rowID++;
