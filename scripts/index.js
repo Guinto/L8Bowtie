@@ -6,25 +6,47 @@ var history = new Array();
 var future = new Array();
 
 function undo() {
-	var temp = new Array();
-	for (i in tiles) {
-		temp.push($.extend({}, tiles[i]));
+	if (history.length === 0) {
+		return;
 	}
-	future.push(temp);
-	var step = history.pop();
-	for (i in step) {
-		var tile = step[i];
+	saveForRedo();
+	tiles = history.pop();
+	for (i in tiles) {
+		var tile = tiles[i];
 		tile.draw();
 	}
 }
 
 function redo() {
-	var step = future.pop();
-	history.push(step);
-	for (i in step) {
-		var tile = step[i];
+	if (future.length === 0) {
+		return;
+	}
+	saveForUndo();
+	tiles = future.pop();
+	for (i in tiles) {
+		var tile = tiles[i];
 		tile.draw();
 	}
+}
+
+function saveForRedo() {
+	var temp = new Array();
+	for (i in tiles) {
+		temp.push($.extend({}, tiles[i]));
+	}
+	future.push(temp);
+}
+
+function saveForUndo() {
+	var temp = new Array();
+	for (i in tiles) {
+		temp.push($.extend({}, tiles[i]));
+	}
+	history.push(temp);
+}
+
+function clearRedo() {
+	future = new Array();
 }
 
 function setupColorPickerWithSelector(selector) {
@@ -68,11 +90,12 @@ function setup() {
 function setupMouseEvents() {
 	$('#lightGrid').on('mousedown', function(event) {
 		mouseDown = true;
+		clearRedo();
+		saveForUndo();
 		doActionOnTile(event);
 	});
 	$('#lightGrid').on('mouseup', function() {
 		mouseDown = false;
-		history.push(recentHistory);
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (mouseDown) {
@@ -83,10 +106,7 @@ function setupMouseEvents() {
 
 function doActionOnTile(event) {
 	var pos = getMousePosition(event);
-	var hitTiles = checkHitsAndChangeColorIfTrue(pos.x, pos.y, colorPicker);
-	if (hitTiles) {
-		recentHistory.push(hitTiles);
-	}
+	hitTiles = checkHitsAndChangeColorIfTrue(pos.x, pos.y, colorPicker);
 }
 
 function setupKeyboardEvents() {

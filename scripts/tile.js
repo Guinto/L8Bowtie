@@ -69,9 +69,8 @@ function checkHitsAndChangeColorIfTrue(x, y, color) {
 	for (i in tiles) {
 		if (tiles[i].hit(x, y)) {
 			if (tiles[i].color !== color) {
-				var tileBeforeChange = $.extend({}, tiles[i]);
 				tiles[i].changeColor(color);
-				return tileBeforeChange;
+				return tiles[i];
 			}
 			return null;
 		}
