@@ -33,6 +33,10 @@ Animation.setup = function () {
 		Animation.fps = $(this).val();
 	});
 	
+	$('#frameNumber').on('change', function() {
+		$('#animationSlider').slider('value', $(this).val());
+	});
+	
 	$('#animationSlider').slider({
 		value: 1,
 		min: 1,
