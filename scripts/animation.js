@@ -25,3 +25,10 @@ Animation.run = (function() {
 		}
 	};
 })();
+
+Animation.setup = function () {
+	$('#fps').val(Animation.fps);
+	$('#fps').on('change', function() {
+		Animation.fps = $(this).val();
+	});
+};

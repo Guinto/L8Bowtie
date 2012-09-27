@@ -5,6 +5,8 @@ var recentHistory = new Array();
 var history = new Array();
 var future = new Array();
 
+var Canvas = {};
+
 function undo() {
 	if (history.length === 0) {
 		return;
@@ -81,7 +83,7 @@ function getMousePosition(event) {
 	};
 }
 
-function setup() {
+Canvas.setup = function() {
 	setupMouseEvents();
 	setupKeyboardEvents();
 	setupButtonEvents();

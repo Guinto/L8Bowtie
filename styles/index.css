@@ -8,9 +8,13 @@ body {
 	-ms-user-select: none;
 }
 
+i {
+	margin-right: 5px;
+}
+
 #settings input {
-	margin: 10px;
-	width: 50px;
+	margin: 10px 0;
+	width: 40px;
 }
 
 canvas {

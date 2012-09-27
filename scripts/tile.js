@@ -1,5 +1,6 @@
 var offColor = "#292929";
 var squareSize = 70;
+var canvasSize = 740;
 var margin = 20;
 var row = 8;
 var col = 8;
@@ -20,10 +21,14 @@ function Tile(row, col) {
 	this.col = col;
 	
 	this.hit = function(x, y) {
+		var hitCanvasSize = parseInt($('.span8').css("width"));
+		var hitSquareSize = hitCanvasSize * squareSize / canvasSize;
+		var hitMargin = hitCanvasSize * margin / canvasSize;
+		
 		// Tile coords refer to top left corner of tile
-		var tileX = this.col * squareSize + margin * (this.col + 1);
-		var tileY = this.row * squareSize + margin * (this.row + 1);
-		if (x > tileX && x < (tileX + squareSize) && y > tileY && y < (tileY + squareSize)) {
+		var tileX = this.col * hitSquareSize + hitMargin * (this.col + 1);
+		var tileY = this.row * hitSquareSize + hitMargin * (this.row + 1);
+		if (x > tileX && x < (tileX + hitSquareSize) && y > tileY && y < (tileY + hitSquareSize)) {
 			return true;
 		}
 		return false;

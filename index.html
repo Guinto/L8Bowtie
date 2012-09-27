@@ -16,7 +16,8 @@
 <script type="text/javascript">
 	$(function() {
 		setupColorPickerWithSelector('#colorChoice');
-		setup();
+		Canvas.setup();
+		Animation.setup();
 	});
 
 	// Lowers cpu usage src=http://nokarma.org/2011/02/02/javascript-game-development-the-game-loop/index.html
@@ -57,9 +58,9 @@
 			<canvas id="lightGrid" class="span8"></canvas>
 			<div id="settings" class="well span3">
 				<h1>Settings</h1>
-				color&nbsp;<input id="colorChoice" type="text">
+				<i class="icon-pencil"></i><input id="colorChoice" type="text">
 				<div>
-				fps&nbsp;<input id="fps" type="number">
+				<i class="icon-film"></i><input id="fps" type="number">
 				<button id="undoBtn" type="button" class="btn">Undo</button>
 				<button id="redoBtn" type="button" class="btn">Redo</button>
 				</div>
