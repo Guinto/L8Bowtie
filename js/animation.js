@@ -1,5 +1,6 @@
 var Animation = {
-	fps : 2
+	fps : 2,
+	totalFrames: 60
 };
 
 Animation.draw = function() {
@@ -30,5 +31,14 @@ Animation.setup = function () {
 	$('#fps').val(Animation.fps);
 	$('#fps').on('change', function() {
 		Animation.fps = $(this).val();
+	});
+	
+	$('#animationSlider').slider({
+		value: 1,
+		min: 1,
+		max: Animation.totalFrames,
+		slide: function(event, ui) {
+			$("#frameNumber").val(ui.value);
+		}
 	});
 };

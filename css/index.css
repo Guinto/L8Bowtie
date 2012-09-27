@@ -17,6 +17,14 @@ i {
 	width: 40px;
 }
 
+label {
+	display: inline-block;
+}
+
+#frameNumber {
+	width: 40px;
+}
+
 canvas {
 	border: #0C0C0C 2px solid;
 	margin: 10px;

@@ -3,15 +3,17 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>L8 Visual</title>
-<link rel="stylesheet" href="styles/bootstrap.min.css" />
-<link rel="stylesheet" href="styles/bootstrap-responsive.min.css" />
-<link rel="stylesheet" href="styles/index.css" />
-<link rel="stylesheet" href="styles/spectrum.css" />
+<link rel="stylesheet" href="css/bootstrap.min.css" />
+<link rel="stylesheet" href="css/bootstrap-responsive.min.css" />
+<link rel="stylesheet" href="css/index.css" />
+<link rel="stylesheet" href="css/spectrum.css" />
+<link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.23.custom.css" />
 
-<script src="scripts/jquery-1.8.2.min.js"></script>
-<script src="scripts/index.js"></script>
-<script src="scripts/spectrum.js"></script>
-<script src="scripts/animation.js"></script>
+<script src="js/jquery-1.8.2.min.js"></script>
+<script src="js/index.js"></script>
+<script src="js/spectrum.js"></script>
+<script src="js/animation.js"></script>
+<script src="js/jquery-ui-1.8.23.custom.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -66,8 +68,15 @@
 				</div>
 			</div>
 		</div>
+		<div class="row">
+			<div class="span8">
+				<label for="frameNumber">Frame:</label>
+				<input id="frameNumber" type="number" value="1">
+				<div id="animationSlider"></div>
+			</div>
+		</div>
 	</div>
 	
-	<script src="scripts/tile.js"></script>
+	<script src="js/tile.js"></script>
 </body>
 </html>
