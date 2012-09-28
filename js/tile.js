@@ -14,11 +14,11 @@ var ctx = canvas.getContext("2d");
 createGrid(row, col);
 drawGrid();
 
-function Tile(row, col) {
+function Tile() {
 	this.lit = false;
 	this.color = offColor;
-	this.row = row;
-	this.col = col;
+	this.row = arguments[0];
+	this.col = arguments[1];
 	
 	this.hit = function(x, y) {
 		var hitCanvasSize = parseInt($('.span8').css("width"));
@@ -65,9 +65,30 @@ function createGrid(row, col) {
 }
 
 function drawGrid() {
+	clearCanvas();
 	for (i in tiles) {
 		tiles[i].draw();
 	}
+}
+
+function copyGrid(grid) {
+	var temp = new Array();
+	for (i in grid) {
+		temp.push($.extend({}, grid[i]));
+	}
+	return temp;
+}
+
+function clearCanvas() {
+	// Store the current transformation matrix
+	ctx.save();
+
+	// Use the identity matrix while clearing the canvas
+	ctx.setTransform(1, 0, 0, 1, 0, 0);
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+	// Restore the transform
+	ctx.restore();
 }
 
 function checkHitsAndChangeColorIfTrue(x, y, color) {
@@ -75,9 +96,7 @@ function checkHitsAndChangeColorIfTrue(x, y, color) {
 		if (tiles[i].hit(x, y)) {
 			if (tiles[i].color !== color) {
 				tiles[i].changeColor(color);
-				return tiles[i];
 			}
-			return null;
 		}
 	}
 }

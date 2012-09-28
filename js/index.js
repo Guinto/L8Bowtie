@@ -5,7 +5,7 @@ var recentHistory = new Array();
 var history = new Array();
 var future = new Array();
 
-var Canvas = {};
+var Page = {};
 
 function undo() {
 	if (history.length === 0) {
@@ -13,10 +13,7 @@ function undo() {
 	}
 	saveForRedo();
 	tiles = history.pop();
-	for (i in tiles) {
-		var tile = tiles[i];
-		tile.draw();
-	}
+	drawGrid();	
 }
 
 function redo() {
@@ -25,10 +22,7 @@ function redo() {
 	}
 	saveForUndo();
 	tiles = future.pop();
-	for (i in tiles) {
-		var tile = tiles[i];
-		tile.draw();
-	}
+	drawGrid();	
 }
 
 function saveForRedo() {
@@ -67,13 +61,6 @@ function setupColorPickerWithSelector(selector) {
 	});
 }
 
-function setupAnimation () {
-	$('#fps').val(Animation.fps);
-	$('#fps').on('change', function() {
-		Animation.fps = $(this).val();
-	});
-}
-
 function getMousePosition(event) {
 	var canvas = document.getElementById("lightGrid");
 	var rect = canvas.getBoundingClientRect();
@@ -83,10 +70,11 @@ function getMousePosition(event) {
 	};
 }
 
-Canvas.setup = function() {
+Page.setup = function() {
 	setupMouseEvents();
 	setupKeyboardEvents();
 	setupButtonEvents();
+	Animation.initFrames(tiles);
 }
 
 function setupMouseEvents() {
@@ -98,6 +86,7 @@ function setupMouseEvents() {
 	});
 	$('#lightGrid').on('mouseup', function() {
 		mouseDown = false;
+		Animation.saveFrame(tiles);
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (mouseDown) {
@@ -108,15 +97,14 @@ function setupMouseEvents() {
 
 function doActionOnTile(event) {
 	var pos = getMousePosition(event);
-	hitTiles = checkHitsAndChangeColorIfTrue(pos.x, pos.y, colorPicker);
+	checkHitsAndChangeColorIfTrue(pos.x, pos.y, colorPicker);
 }
 
+// Use for keyboard junk
 function setupKeyboardEvents() {
 	$('body').keydown(function(e) {
-		console.log(e.which);
 	});
 	$('body').keyup(function(e) {
-		console.log(e.which);
 	});
 }
 
