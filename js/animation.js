@@ -4,6 +4,7 @@ var Animation = {
 	frame: 0,
 	frameData: new Array(),
 	playing: false,
+	intervalID: null
 };
 
 Animation.draw = function() {
@@ -15,7 +16,6 @@ Animation.update = function() {
 		Animation.frame = 0;
 	}
 	Animation.updateFrameCounterAndSlider();
-	console.log("yo");
 };
 
 Animation.run = (function() {
@@ -90,19 +90,18 @@ Animation.setPlayButton = function() {
 	}
 };
 
-var _intervalID;
 Animation.animate = function() {
 	if (Animation.playing) {
-		clearInterval(_intervalID);
+		clearInterval(Animation.intervalID);
 	} else {
-		_intervalID = setInterval(function() { Animation.run2() }, 1000 / Animation.fps);
+		Animation.intervalID = setInterval(function() { Animation.run2() }, 1000 / Animation.fps);
 	}
 }
 
 Animation.setFrame = function(index) {
 	Animation.frame = index;
-	tiles = Animation.frameData[index];
-	drawGrid();
+	Grid.tiles = Animation.frameData[index];
+	Grid.draw();
 }
 
 Animation.initFrames = function(initData) {
@@ -111,7 +110,7 @@ Animation.initFrames = function(initData) {
 	}
 	
 	for (var i = 0; i < Animation.totalFrames; i++) {
-		Animation.frameData.push($.extend({}, copyGrid(initData)));
+		Animation.frameData.push($.extend({}, Grid.copy(initData)));
 	}
 }
 

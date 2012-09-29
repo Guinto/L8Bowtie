@@ -1,118 +1,53 @@
-var colorPicker = "white";
-var savedPalette = [];
-var mouseDown = false;
-var recentHistory = new Array();
-var history = new Array();
-var future = new Array();
+var Index = {
+	mouseDown: false		
+};
 
-var Page = {};
-
-function undo() {
-	if (history.length === 0) {
-		return;
-	}
-	saveForRedo();
-	tiles = history.pop();
-	drawGrid();	
+Index.doActionOnTile = function(event) {
+	var pos = Index.getMousePosition(event);
+	Grid.checkHitsAndChangeColorIfTrue(pos.x, pos.y, Settings.colorPicker);
 }
 
-function redo() {
-	if (future.length === 0) {
-		return;
-	}
-	saveForUndo();
-	tiles = future.pop();
-	drawGrid();	
-}
+Index.setup = function() {
+	Grid.setup();
+	Canvas.setup();
+	Index.setupMouseEvents();
+	Index.setupKeyboardEvents();
+	Settings.setupButtonEvents();
+	Settings.setupColorPickerWithSelector('#colorChoice');
+	Animation.initFrames(Grid.tiles);
+};
 
-function saveForRedo() {
-	var temp = new Array();
-	for (i in tiles) {
-		temp.push($.extend({}, tiles[i]));
-	}
-	future.push(temp);
-}
-
-function saveForUndo() {
-	var temp = new Array();
-	for (i in tiles) {
-		temp.push($.extend({}, tiles[i]));
-	}
-	history.push(temp);
-}
-
-function clearRedo() {
-	future = new Array();
-}
-
-function setupColorPickerWithSelector(selector) {
-	$(selector).spectrum({
-		color: "white",
-		showInput: true,
-		preferredFormat: "hex",
-		showInitial: true,
-		showPalette: true, // Needed to show premade palettte
-		palette: ["#255ea6", "#da3838"],
-		showSelectionPalette: true,
-		localStorageKey: "spectrum.homepage",
-		change: function(color) {
-			colorPicker = color.toHexString();
+Index.setupMouseEvents = function() {
+	$('#lightGrid').on('mousedown', function(event) {
+		Index.mouseDown = true;
+		Settings.clearRedo();
+		Settings.saveForUndo();
+		Index.doActionOnTile(event);
+	});
+	$('#lightGrid').on('mouseup', function() {
+		Index.mouseDown = false;
+		Animation.saveFrame(Grid.tiles);
+	});
+	$('#lightGrid').on('mousemove', function(event) {
+		if (Index.mouseDown) {
+			Index.doActionOnTile(event);
 		}
 	});
-}
+};
 
-function getMousePosition(event) {
+// Use for keyboard junk
+Index.setupKeyboardEvents = function() {
+	$('body').keydown(function(e) {
+	});
+	$('body').keyup(function(e) {
+	});
+};
+
+Index.getMousePosition = function(event) {
 	var canvas = document.getElementById("lightGrid");
 	var rect = canvas.getBoundingClientRect();
 	return {
 		x: Math.ceil(event.clientX - rect.left),
 		y: Math.ceil(event.clientY - rect.top)
 	};
-}
-
-Page.setup = function() {
-	setupMouseEvents();
-	setupKeyboardEvents();
-	setupButtonEvents();
-	Animation.initFrames(tiles);
-}
-
-function setupMouseEvents() {
-	$('#lightGrid').on('mousedown', function(event) {
-		mouseDown = true;
-		clearRedo();
-		saveForUndo();
-		doActionOnTile(event);
-	});
-	$('#lightGrid').on('mouseup', function() {
-		mouseDown = false;
-		Animation.saveFrame(tiles);
-	});
-	$('#lightGrid').on('mousemove', function(event) {
-		if (mouseDown) {
-			doActionOnTile(event);
-		}
-	});
-}
-
-function doActionOnTile(event) {
-	var pos = getMousePosition(event);
-	checkHitsAndChangeColorIfTrue(pos.x, pos.y, colorPicker);
-}
-
-// Use for keyboard junk
-function setupKeyboardEvents() {
-	$('body').keydown(function(e) {
-	});
-	$('body').keyup(function(e) {
-	});
-}
-
-function setupButtonEvents() {
-	$('#undoBtn').on('click', function() {
-		undo();
-	});
-	$('#redoBtn').on('click', function() {
-		redo();
-	});
-}
+};
