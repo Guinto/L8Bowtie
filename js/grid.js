@@ -38,7 +38,6 @@ Grid.copy = function(grid) {
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 	for (i in Grid.tiles) {
 		if (Grid.tiles[i].hit(x, y)) {
-			console.log("YO");
 			if (Grid.tiles[i].color !== color) {
 				Grid.tiles[i].changeColor(color);
 			}

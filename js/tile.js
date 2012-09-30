@@ -17,7 +17,6 @@ function TileInstance() {
 		// Tile coords refer to top left corner of tile
 		var tileX = this.col * hitSize + hitMargin * (this.col + 1);
 		var tileY = this.row * hitSize + hitMargin * (this.row + 1);
-		console.log(x + " : " + tileX);
 		if (x > tileX && x < (tileX + hitSize) && y > tileY && y < (tileY + hitSize)) {
 			return true;
 		}
