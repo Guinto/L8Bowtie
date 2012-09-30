@@ -11,12 +11,13 @@ function TileInstance() {
 
 	this.hit = function(x, y) {
 		var hitCanvasSize = parseInt($('.span8').css("width"));
-		var hitSize = hitCanvasSize * Tile.size / Canvas.size;
-		var hitMargin = hitCanvasSize * Canvas.margin / Canvas.size;
+		var hitSize = hitCanvasSize * Tile.size / Grid.size;
+		var hitMargin = hitCanvasSize * Grid.margin / Grid.size;
 		
 		// Tile coords refer to top left corner of tile
 		var tileX = this.col * hitSize + hitMargin * (this.col + 1);
 		var tileY = this.row * hitSize + hitMargin * (this.row + 1);
+		console.log(x + " : " + tileX);
 		if (x > tileX && x < (tileX + hitSize) && y > tileY && y < (tileY + hitSize)) {
 			return true;
 		}
