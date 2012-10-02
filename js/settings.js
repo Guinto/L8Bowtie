@@ -1,6 +1,7 @@
 var Settings = {
 	colorPicker: "white",
 	savedPalette: [],
+	pickerState: "color",
 	recentHistory: new Array(),
 	history: new Array(),
 	future: new Array(),		
@@ -44,6 +45,10 @@ Settings.clearRedo = function() {
 	Settings.future = new Array();
 };
 
+Settings.clearUndo = function() {
+	Settings.undo = new Array();
+};
+
 Settings.setupColorPickerWithSelector = function(selector) {
 	$(selector).spectrum({
 		color: "white",
@@ -56,6 +61,9 @@ Settings.setupColorPickerWithSelector = function(selector) {
 		localStorageKey: "spectrum.homepage",
 		change: function(color) {
 			Settings.colorPicker = color.toHexString();
+		},
+		beforeShow: function() {
+			Settings.pickerState = "color";
 		}
 	});
 };
@@ -66,5 +74,8 @@ Settings.setupButtonEvents = function() {
 	});
 	$('#redoBtn').on('click', function() {
 		redo();
+	});
+	$('#turnOffBtn').on('click', function() {
+		Settings.pickerState = "turnOff";
 	});
 };

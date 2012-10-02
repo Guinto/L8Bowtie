@@ -38,8 +38,10 @@ Grid.copy = function(grid) {
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 	for (i in Grid.tiles) {
 		if (Grid.tiles[i].hit(x, y)) {
-			if (Grid.tiles[i].color !== color) {
+			if (Settings.pickerState == "color" && Grid.tiles[i].color !== color) {
 				Grid.tiles[i].changeColor(color);
+			} else if (Settings.pickerState == "turnOff") {
+				Grid.tiles[i].turnOff();
 			}
 		}
 	}

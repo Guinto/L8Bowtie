@@ -18,8 +18,12 @@ i {
 }
 
 #settings input {
-	margin: 10px 0;
 	width: 40px;
+	margin: 0;
+}
+
+#settings > div {
+	margin: 10px 0;
 }
 
 label {

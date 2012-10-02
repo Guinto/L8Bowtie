@@ -51,6 +51,9 @@ Animation.setup = function() {
 	$('#frameNumber').on('change', function() {
 		$('#animationSlider').slider('value', $(this).val());
 		Animation.setFrame($(this).val());
+		Settings.clearRedo();
+		Settings.clearUndo();
+		Settings.saveForUndo();
 	});
 	
 	$('#animationSlider').slider({
@@ -60,6 +63,9 @@ Animation.setup = function() {
 		slide: function(event, ui) {
 			$("#frameNumber").val(ui.value);
 			Animation.setFrame(ui.value);
+			Settings.clearRedo();
+			Settings.clearUndo();
+			Settings.saveForUndo();
 		}
 	});
 
