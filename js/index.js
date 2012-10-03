@@ -22,6 +22,7 @@ Index.setupMouseEvents = function() {
 		Index.mouseDown = true;
 		Settings.clearRedo();
 		Settings.saveForUndo();
+		console.log(Settings.history);
 		Index.doActionOnTile(event);
 	});
 	$('#lightGrid').on('mouseup', function() {

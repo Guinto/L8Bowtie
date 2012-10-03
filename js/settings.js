@@ -30,7 +30,7 @@ Settings.saveForRedo = function() {
 	for (i in Grid.tiles) {
 		temp.push($.extend({}, Grid.tiles[i]));
 	}
-	future.push(temp);
+	Settings.future.push(temp);
 };
 
 Settings.saveForUndo = function() {
@@ -46,7 +46,7 @@ Settings.clearRedo = function() {
 };
 
 Settings.clearUndo = function() {
-	Settings.undo = new Array();
+	Settings.history = new Array();
 };
 
 Settings.setupColorPickerWithSelector = function(selector) {
@@ -70,10 +70,10 @@ Settings.setupColorPickerWithSelector = function(selector) {
 
 Settings.setupButtonEvents = function() {
 	$('#undoBtn').on('click', function() {
-		undo();
+		Settings.undo();
 	});
 	$('#redoBtn').on('click', function() {
-		redo();
+		Settings.redo();
 	});
 	$('#turnOffBtn').on('click', function() {
 		Settings.pickerState = "turnOff";
