@@ -1,5 +1,6 @@
 var Index = {
-	mouseDown: false		
+	mouseDown: false,
+	pressedKeys: new Array()
 };
 
 Index.doActionOnTile = function(event) {
@@ -22,7 +23,6 @@ Index.setupMouseEvents = function() {
 		Index.mouseDown = true;
 		Settings.clearRedo();
 		Settings.saveForUndo();
-		console.log(Settings.history);
 		Index.doActionOnTile(event);
 	});
 	$('#lightGrid').on('mouseup', function() {
@@ -39,9 +39,41 @@ Index.setupMouseEvents = function() {
 // Use for keyboard junk
 Index.setupKeyboardEvents = function() {
 	$('body').keydown(function(e) {
+		Index.checkSingleKey(e.which);
+		if (!Index.check(e.which)) {
+			Index.pressedKeys.push(e.which);
+		}
+		Index.checkKeyCombos();
+		console.log(Index.pressedKeys);
 	});
 	$('body').keyup(function(e) {
+		//remove key
+		var index = Index.pressedKeys.indexOf(e.which);
+		Index.pressedKeys.splice(index, 1);
+		console.log(Index.pressedKeys);
 	});
+};
+
+Index.checkSingleKey = function(key) {
+	// spacebar
+	if (key == 32) {
+		Animation.playOrPause();
+	}
+};
+
+Index.checkKeyCombos = function() {
+	// (ctrl or cmd) + z 
+	if ((Index.check(91) || Index.check(17)) && Index.check(90)) {
+		Settings.undo();
+	}
+	// (ctrl or cmd) + shift + z 
+	if ((Index.check(91) || Index.check(17)) && Index.check(16) && Index.check(90)) {
+		Settings.redo();
+	}
+};
+
+Index.check = function(key) {
+	return Index.pressedKeys.indexOf(key) != -1;
 };
 
 Index.getMousePosition = function(event) {
