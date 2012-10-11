@@ -5,6 +5,11 @@ var Index = {
 
 Index.doActionOnTile = function(event) {
 	var pos = Index.getMousePosition(event);
+	
+	// Releases the mouse if it leaves the canvas
+	if (pos.x < 5 || pos.y < 5) {
+		Index.mouseDown = false;
+	}
 	Grid.checkHitsAndChangeColorIfTrue(pos.x, pos.y, Settings.colorPicker);
 }
 
@@ -68,7 +73,7 @@ Index.checkKeyCombos = function() {
 	}
 	// (ctrl or cmd) + shift + z 
 	if ((Index.check(91) || Index.check(17)) && Index.check(16) && Index.check(90)) {
-		Settings.redo();
+		Settings.redo2();
 	}
 };
 

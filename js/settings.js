@@ -2,7 +2,6 @@ var Settings = {
 	colorPicker: "white",
 	savedPalette: [],
 	pickerState: "color",
-	recentHistory: new Array(),
 	history: new Array(),
 	future: new Array(),		
 };
@@ -25,13 +24,35 @@ Settings.redo = function() {
 	Grid.draw();	
 };
 
+/*
+ * Created as a workaround for a bug where the 
+ * keyboard calling redo did not pop the future.
+ */
+Settings.redo2 = function() {
+	if (Settings.future.length === 0) {
+		return;
+	}
+	Settings.saveForUndo();
+	
+	// Extra pop needed for keyboard redo
+	var firstPop = Settings.future.pop();
+	var secondPop = Settings.future.pop();
+	if (secondPop != null) {
+		Grid.tiles = secondPop;
+	} else {
+		Grid.tiles = firstPop;
+	}
+	
+	Grid.draw();	
+};
+
 Settings.saveForRedo = function() {
 	var temp = new Array();
 	for (i in Grid.tiles) {
 		temp.push($.extend({}, Grid.tiles[i]));
 	}
 	Settings.future.push(temp);
-};
+};;
 
 Settings.saveForUndo = function() {
 	var temp = new Array();
