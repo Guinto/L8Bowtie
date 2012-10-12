@@ -85,12 +85,17 @@ Settings.setupColorPickerWithSelector = function(selector) {
 		},
 		beforeShow: function() {
 			Settings.pickerState = "color";
+			Settings.changeCursor('default');
 		}
 	});
 };
 
 Settings.fill = function() {
 	Grid.fill();
+};
+
+Settings.empty = function() {
+	Grid.empty();
 };
 
 Settings.setupButtonEvents = function() {
@@ -102,8 +107,20 @@ Settings.setupButtonEvents = function() {
 	});
 	$('#turnOffBtn').on('click', function() {
 		Settings.pickerState = "turnOff";
+		Settings.changeCursor('default');
 	});
 	$('#fill').on('click', function() {
 		Settings.fill();
 	});
+	$('#empty').on('click', function() {
+		Settings.empty();
+	});
+	$('#selectBox').on('click', function() {
+		Settings.pickerState = "selectBox";
+		Settings.changeCursor('crosshair');
+	});
+};
+
+Settings.changeCursor = function(type) {
+	$('canvas').css('cursor', type);
 };

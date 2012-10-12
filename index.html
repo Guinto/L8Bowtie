@@ -10,11 +10,11 @@
 <link rel="stylesheet" href="css/ui-lightness/jquery-ui-1.8.23.custom.css" />
 
 <script type="text/javascript" src="js/jquery-1.8.2.min.js"></script>
+<script src="js/jquery-ui-1.8.23.custom.min.js"></script>
 <script src="js/spectrum.js"></script>
 <script src="js/animation.js"></script>
 <script src="js/settings.js"></script>
 <script src="js/index.js"></script>
-<script src="js/jquery-ui-1.8.23.custom.min.js"></script>
 
 <script type="text/javascript">
 	$(function() {
@@ -34,13 +34,18 @@
 					<i class="icon-pencil"></i><input id="colorChoice" type="text">
 				</div>
 				<div>
-					<i class="icon-filter"></i><button id="fill" type=button" class="btn">Fill</button>
-				</div>
-				<div>
-					<i class="icon-film"></i><input id="fps" type="number">
-				</div>
-				<div>
 					<i class="icon-eye-close"></i><button id="turnOffBtn" type=button" class="btn">Turn Off</button>
+				</div>
+				<div>
+					<i class="icon-edit"></i><button id="selectBox" type=button" class="btn">Select</button>
+				</div>
+				<div>
+					<i class="icon-filter"></i>
+					<button id="fill" type=button" class="btn">Fill</button>
+					<button id="empty" type=button" class="btn">Empty</button>
+				</div>
+				<div>
+					<i class="icon-facetime-video"></i><input id="fps" type="number">
 				</div>
 				<div>
 					<i class="icon-repeat"></i>
@@ -62,5 +67,6 @@
 	<script src="js/canvas.js"></script>
 	<script src="js/tile.js"></script>
 	<script src="js/grid.js"></script>
+	<script src="js/selection.js"></script>
 </body>
 </html>

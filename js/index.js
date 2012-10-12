@@ -7,7 +7,7 @@ Index.doActionOnTile = function(event) {
 	var pos = Index.getMousePosition(event);
 	
 	// Releases the mouse if it leaves the canvas
-	if (pos.x < 5 || pos.y < 5) {
+	if (pos.x < 5 || pos.y < 5 || pos.x > (Grid.actualSize - 5) || pos.y > (Grid.actualSize - 5)) {
 		Index.mouseDown = false;
 	}
 	Grid.checkHitsAndChangeColorIfTrue(pos.x, pos.y, Settings.colorPicker);
@@ -28,7 +28,12 @@ Index.setupMouseEvents = function() {
 		Index.mouseDown = true;
 		Settings.clearRedo();
 		Settings.saveForUndo();
-		Index.doActionOnTile(event);
+		
+		if (Settings.pickerState === 'selectBox') {
+			var pos = Index.getMousePosition(event);
+			Selection.setStart(pos.x, pos.y);
+		}
+		Index.doAction(event);
 	});
 	$('#lightGrid').on('mouseup', function() {
 		Index.mouseDown = false;
@@ -36,12 +41,23 @@ Index.setupMouseEvents = function() {
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (Index.mouseDown) {
-			Index.doActionOnTile(event);
+			Index.doAction(event);
 		}
 	});
 };
 
-// Use for keyboard junk
+Index.doAction = function(event) {
+	if (Settings.pickerState === 'selectBox') {
+		Canvas.clear();
+		var pos = Index.getMousePosition(event);
+		Selection.setEnd(pos.x, pos.y);
+		Grid.draw();
+		Selection.draw();
+	} else {
+		Index.doActionOnTile(event);
+	}
+};
+
 Index.setupKeyboardEvents = function() {
 	$('body').keydown(function(e) {
 		Index.checkSingleKey(e.which);
@@ -49,13 +65,11 @@ Index.setupKeyboardEvents = function() {
 			Index.pressedKeys.push(e.which);
 		}
 		Index.checkKeyCombos();
-		console.log(Index.pressedKeys);
 	});
 	$('body').keyup(function(e) {
 		//remove key
 		var index = Index.pressedKeys.indexOf(e.which);
 		Index.pressedKeys.splice(index, 1);
-		console.log(Index.pressedKeys);
 	});
 };
 

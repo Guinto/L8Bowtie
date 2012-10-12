@@ -40,6 +40,12 @@ Grid.fill = function() {
 	for (i in Grid.tiles) {
 		Grid.tiles[i].changeColor(Settings.colorPicker);
 	}
+}
+
+Grid.empty = function() {
+	for (i in Grid.tiles) {
+		Grid.tiles[i].turnOff();
+	}
 }
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 	for (i in Grid.tiles) {
