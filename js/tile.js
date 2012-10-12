@@ -10,9 +10,9 @@ function TileInstance() {
 	this.col = arguments[1];
 
 	this.hit = function(x, y) {
-		var hitCanvas = parseInt($('.span8').css("width"));
-		var hitSize = hitCanvas * Tile.size / Grid.size;
-		var hitMargin = hitCanvas * Grid.margin / Grid.size;
+		Grid.actualSize = parseInt($('.span8').css("width"));
+		var hitSize = Grid.actualSize * Tile.size / Grid.size;
+		var hitMargin = Grid.actualSize * Grid.margin / Grid.size;
 		
 		// Tile coords refer to top left corner of tile
 		var tileX = this.col * hitSize + hitMargin * (this.col + 1);

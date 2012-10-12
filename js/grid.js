@@ -1,5 +1,6 @@
 var Grid = {
 	size: 740,
+	actualSize: 740,
 	row: 8,
 	col: 8,
 	margin: 20,
