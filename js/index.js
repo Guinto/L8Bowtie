@@ -3,16 +3,6 @@ var Index = {
 	pressedKeys: new Array()
 };
 
-Index.doActionOnTile = function(event) {
-	var pos = Index.getMousePosition(event);
-	
-	// Releases the mouse if it leaves the canvas
-	if (pos.x < 5 || pos.y < 5 || pos.x > (Grid.actualSize - 5) || pos.y > (Grid.actualSize - 5)) {
-		Index.mouseDown = false;
-	}
-	Grid.checkHitsAndChangeColorIfTrue(pos.x, pos.y, Settings.colorPicker);
-}
-
 Index.setup = function() {
 	Grid.setup();
 	Canvas.setup();
@@ -47,14 +37,20 @@ Index.setupMouseEvents = function() {
 };
 
 Index.doAction = function(event) {
+	var pos = Index.getMousePosition(event);
+	
+	// Releases the mouse if it leaves the canvas
+	if (pos.x < 5 || pos.y < 5 || pos.x > (Grid.actualSize - 5) || pos.y > (Grid.actualSize - 5)) {
+		Index.mouseDown = false;
+	}
+	
 	if (Settings.pickerState === 'selectBox') {
 		Canvas.clear();
-		var pos = Index.getMousePosition(event);
 		Selection.setEnd(pos.x, pos.y);
 		Grid.draw();
 		Selection.draw();
 	} else {
-		Index.doActionOnTile(event);
+		Grid.checkHitsAndChangeColorIfTrue(pos.x, pos.y, Settings.colorPicker);
 	}
 };
 
