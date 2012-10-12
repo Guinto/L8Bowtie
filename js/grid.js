@@ -34,7 +34,13 @@ Grid.copy = function(grid) {
 		temp.push($.extend({}, grid[i]));
 	}
 	return temp;
-};
+};
+
+Grid.fill = function() {
+	for (i in Grid.tiles) {
+		Grid.tiles[i].changeColor(Settings.colorPicker);
+	}
+}
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 	for (i in Grid.tiles) {
 		if (Grid.tiles[i].hit(x, y)) {

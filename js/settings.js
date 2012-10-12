@@ -89,6 +89,10 @@ Settings.setupColorPickerWithSelector = function(selector) {
 	});
 };
 
+Settings.fill = function() {
+	Grid.fill();
+};
+
 Settings.setupButtonEvents = function() {
 	$('#undoBtn').on('click', function() {
 		Settings.undo();
@@ -98,5 +102,8 @@ Settings.setupButtonEvents = function() {
 	});
 	$('#turnOffBtn').on('click', function() {
 		Settings.pickerState = "turnOff";
+	});
+	$('#fill').on('click', function() {
+		Settings.fill();
 	});
 };
