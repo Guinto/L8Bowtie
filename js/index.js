@@ -28,6 +28,7 @@ Index.setupMouseEvents = function() {
 	$('#lightGrid').on('mouseup', function() {
 		Index.mouseDown = false;
 		Animation.saveFrame(Grid.tiles);
+		Grid.checkSelection();
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (Index.mouseDown) {

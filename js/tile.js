@@ -1,6 +1,7 @@
 var Tile = {
 	offColor: "#292929",
-	size: 70
+	size: 70,
+	actualSize: 70
 };
 
 function TileInstance() {
@@ -11,13 +12,13 @@ function TileInstance() {
 
 	this.hit = function(x, y) {
 		Grid.actualSize = parseInt($('.span8').css("width"));
-		var hitSize = Grid.actualSize * Tile.size / Grid.size;
+		Tile.actualSize = Grid.actualSize * Tile.size / Grid.size;
 		var hitMargin = Grid.actualSize * Grid.margin / Grid.size;
 		
 		// Tile coords refer to top left corner of tile
-		var tileX = this.col * hitSize + hitMargin * (this.col + 1);
-		var tileY = this.row * hitSize + hitMargin * (this.row + 1);
-		if (x > tileX && x < (tileX + hitSize) && y > tileY && y < (tileY + hitSize)) {
+		var tileX = this.col * Tile.actualSize + hitMargin * (this.col + 1);
+		var tileY = this.row * Tile.actualSize + hitMargin * (this.row + 1);
+		if (x > tileX && x < (tileX + Tile.actualSize) && y > tileY && y < (tileY + Tile.actualSize)) {
 			return true;
 		}
 		return false;

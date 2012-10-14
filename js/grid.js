@@ -41,13 +41,24 @@ Grid.fill = function() {
 	for (i in Grid.tiles) {
 		Grid.tiles[i].changeColor(Settings.colorPicker);
 	}
-}
+};
 
 Grid.empty = function() {
 	for (i in Grid.tiles) {
 		Grid.tiles[i].turnOff();
 	}
-}
+};
+
+Grid.checkSelection = function() {
+	var selection = new Array();
+	for (var x = Selection.startX; x < (Selection.endX + Tile.actualSize); x += Tile.actualSize) {
+		for (var y = Selection.startY; y < (Selection.endY + Tile.actualSize); y += Tile.actualSize) {
+			Grid.checkHitsAndChangeColorIfTrue(x, y, "pink");
+		}
+	}
+	Grid.draw();
+	return selection;
+};
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 	for (i in Grid.tiles) {
 		if (Grid.tiles[i].hit(x, y)) {
@@ -55,6 +66,8 @@ Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {
 				Grid.tiles[i].changeColor(color);
 			} else if (Settings.pickerState == "turnOff") {
 				Grid.tiles[i].turnOff();
+			} else if (Settings.pickerState == "selectBox" && !Settings.mouseDown) {
+				Grid.tiles[i].changeColor(color);
 			}
 		}
 	}
