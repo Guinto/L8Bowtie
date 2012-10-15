@@ -29,6 +29,7 @@ Index.setupMouseEvents = function() {
 		Index.mouseDown = false;
 		Animation.saveFrame(Grid.tiles);
 		Grid.checkSelection();
+		Grid.draw();
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (Index.mouseDown) {
@@ -46,7 +47,6 @@ Index.doAction = function(event) {
 	}
 	
 	if (Settings.pickerState === 'selectBox') {
-		Canvas.clear();
 		Selection.setEnd(pos.x, pos.y);
 		Grid.draw();
 		Selection.draw();

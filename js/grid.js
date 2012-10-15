@@ -56,7 +56,6 @@ Grid.checkSelection = function() {
 			Grid.checkHitsAndChangeColorIfTrue(x, y, "pink");
 		}
 	}
-	Grid.draw();
 	return selection;
 };
 Grid.checkHitsAndChangeColorIfTrue = function(x, y, color) {

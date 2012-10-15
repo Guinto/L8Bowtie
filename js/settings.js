@@ -91,10 +91,12 @@ Settings.setupColorPickerWithSelector = function(selector) {
 };
 
 Settings.fill = function() {
+	Settings.saveForUndo();
 	Grid.fill();
 };
 
 Settings.empty = function() {
+	Settings.saveForUndo();
 	Grid.empty();
 };
 
