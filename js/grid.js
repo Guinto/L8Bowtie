@@ -51,8 +51,9 @@ Grid.empty = function() {
 
 Grid.checkSelection = function() {
 	var selection = new Array();
-	for (var x = Selection.startX; x < (Selection.endX + Tile.actualSize); x += Tile.actualSize) {
-		for (var y = Selection.startY; y < (Selection.endY + Tile.actualSize); y += Tile.actualSize) {
+	for (var x = Selection.startX; x < Selection.endX; x += Tile.actualSize) {
+		for (var y = Selection.startY; y < Selection.endY; y += Tile.actualSize) {
+			console.log(x + ", " + y);
 			Grid.checkHitsAndChangeColorIfTrue(x, y, "pink");
 		}
 	}

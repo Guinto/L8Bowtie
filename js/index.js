@@ -28,8 +28,10 @@ Index.setupMouseEvents = function() {
 	$('#lightGrid').on('mouseup', function() {
 		Index.mouseDown = false;
 		Animation.saveFrame(Grid.tiles);
-		Grid.checkSelection();
-		Grid.draw();
+		if (Settings.pickerState == "selectBox") {
+			Grid.checkSelection();
+			Grid.draw();
+		}
 	});
 	$('#lightGrid').on('mousemove', function(event) {
 		if (Index.mouseDown) {
